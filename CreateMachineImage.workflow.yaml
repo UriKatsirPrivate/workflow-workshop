@@ -1,0 +1,20 @@
+# Sample input
+# {
+#   "project": "uri-test",
+#   "zone": "us-east1-b"
+# }
+main:
+    params: [args]
+    steps:
+    - List Instances:
+        call: http.post
+        args:
+            url: https://us-central1-uri-test.cloudfunctions.net/deleteMe
+            auth:
+                type: OIDC
+            body:
+                project: ${args.project}
+                zone: ${args.zone}
+        result: Result
+    - returnValue:
+        return: ${Result.body}

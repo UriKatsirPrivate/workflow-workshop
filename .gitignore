@@ -123,3 +123,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+security/uri-test-38aacab75c2a.json
+.vscode/settings.json
