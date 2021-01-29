@@ -1,0 +1,28 @@
+# Sample input
+# {"project":"uri-test","days_to_go_back":"5"}
+main:
+    params: [args]
+    steps:
+    - List Machine Images:
+        call: http.post
+        args:
+            url: https://us-central1-uri-test.cloudfunctions.net/ListMachineImages
+            auth:
+                type: OIDC
+            body:
+                project: ${args.project}
+                # zone: ${args.zone}
+        result: ResultList
+    - Delete Machine Image:
+        call: http.post
+        args:
+            url: https://us-central1-uri-test.cloudfunctions.net/DeleteMachineImages
+            auth:
+                type: OIDC
+            body:
+                project: ${args.project}
+                items: ${ResultList.body.items}
+                days_to_go_back: ${args.days_to_go_back}
+        result: ResultImages
+    - returnValue:
+        return: ${ResultImages.body}

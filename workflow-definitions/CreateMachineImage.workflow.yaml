@@ -1,0 +1,28 @@
+# Sample input
+# {"project": "uri-test","zone": "us-east1-b"}
+main:
+    params: [args]
+    steps:
+    - List Instances:
+        call: http.post
+        args:
+            url: https://us-central1-uri-test.cloudfunctions.net/ListInstances
+            auth:
+                type: OIDC
+            body:
+                project: ${args.project}
+                zone: ${args.zone}
+        result: ResultList
+    - Create Machine Image:
+        call: http.post
+        args:
+            url: https://us-central1-uri-test.cloudfunctions.net/CreateMachineImages
+            auth:
+                type: OIDC
+            body:
+                project: ${args.project}
+                items: ${ResultList.body.items}
+        result: ResultImages
+    - returnValue:
+        return: ${ResultImages.body}
+    
