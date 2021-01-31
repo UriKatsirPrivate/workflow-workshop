@@ -32,12 +32,12 @@ def Delete_Machine_Image():
     # request_json = request.get_json()
     # project = request_json['project']
     project = 'uri-test'
-    # days_to_go_back=5
-    days_to_go_back = int(request_json['days_to_go_back'])
-    Machine_Images = request_json['items']
-    # Machine_Images = gce_service.machineImages().list(project=project).execute()
-    # instances = request_json['items']
-    for instance in Machine_Images['items']:
+    days_to_go_back=1
+    # days_to_go_back = int(request_json['days_to_go_back'])
+    # Machine_Images = request_json['items']
+    Machine_Images = gce_service.machineImages().list(project=project).execute()
+    # Machine_Image = request_json['items']
+    for Machine_Image in Machine_Images['items']:
         name = Machine_Image['name']
         CreationTimestamp = datetime.fromisoformat(
             Machine_Image['creationTimestamp'])
@@ -49,4 +49,4 @@ def Delete_Machine_Image():
     # ddd = ''
 
 
-# Delete_Machine_Image()
+Delete_Machine_Image()
