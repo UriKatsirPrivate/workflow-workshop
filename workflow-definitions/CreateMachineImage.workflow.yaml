@@ -1,5 +1,4 @@
-# Sample input
-# {"project": "uri-test","zone": "us-east1-b"}
+# Sample input {"project": "uri-test","zone": "us-east1-b"}
 main:
     params: [args]
     steps:
@@ -14,15 +13,21 @@ main:
                 zone: ${args.zone}
         result: ResultList
     - Create Machine Image:
-        call: http.post
-        args:
-            url: https://us-central1-uri-test.cloudfunctions.net/CreateMachineImages
-            auth:
-                type: OIDC
-            body:
-                project: ${args.project}
-                items: ${ResultList.body.items}
-        result: ResultImages
+        try:
+            call: http.post
+            args:
+                url: https://us-central1-uri-test.cloudfunctions.net/CreateMachineImages
+                auth:
+                    type: OIDC
+                body:
+                    project: ${args.project}
+                    items: ${ResultList.body.items}
+            result: ResultImages
+        except:
+            as: e
+            steps:
+                - All Errors:
+                    next: returnValue   
     - returnValue:
-        return: ${ResultImages.body}
+        return: "All Good"
     
