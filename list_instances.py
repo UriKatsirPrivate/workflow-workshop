@@ -23,20 +23,26 @@ gce_service = build('compute', 'v1', credentials=credentials)
 # gce_service = build('compute', 'v1')
 # -------------------------------------------------------------
 
+
 def list_instances(request):
-    request_json = request.get_json()
-    project = request_json['project']
-    zone = request_json['zone']
-    instances = gce_service.instances().list(
-        project=project, zone=zone).execute()
+    # request_json = request.get_json()
+    # project = request_json['project']
+    # zone = request_json['zone']
+    project = 'uri-test'
+    zone = 'us-east1-c'
+    instances = gce_service.instances().list(project=project, zone=zone).execute()
+    # re_instances = instances.get_json()
+    if request_json and 'items' in request_json:
+        dsf = ''
     # for instance in instances['items']:
     #     name = instance['name']
     #     name = (name[:40]) if len(name) > 40 else name
     #     selfLink = instance['selfLink']
-    
+
     # create_machine_image.Insert_Machine_Image(project_name,instances)
-        
+    dfd = ''
     return instances
+
 
 input1 = {"project": 5, "zone": "us-east1-b"}
 list_instances(input1)

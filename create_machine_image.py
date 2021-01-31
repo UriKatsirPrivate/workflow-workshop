@@ -31,17 +31,21 @@ gce_service = build('compute', 'beta', credentials=credentials)
 
 def Insert_Machine_Image(request):
     request_json = request.get_json()
-    project = request_json['project']
-    instances = request_json['items']
-    for instance in instances:
-        name = instance['name']
-        name = (name[:40]) if len(name) > 40 else name
-        selfLink = instance['selfLink']
-        config = {
-            "name": name + '-' + datetime.datetime.now().strftime(("%d-%m-%Y-%H-%M-%S")),
-            "sourceInstance": selfLink
-        }
-        gce_service.machineImages().insert(
-            project=project, body=config).execute()
 
-# Insert_Machine_Image(project_name)
+    if 'items' in request_json:
+        project = request_json['project']
+        instances = request_json['items']
+
+        for instance in instances:
+            name = instance['name']
+            name = (name[:40]) if len(name) > 40 else name
+            selfLink = instance['selfLink']
+            config = {
+                "name": name + '-' + datetime.datetime.now().strftime(("%d-%m-%Y-%H-%M-%S")),
+                "sourceInstance": selfLink
+            }
+            gce_service.machineImages().insert(project=project, body=config).execute()
+
+
+input1 = ''
+Insert_Machine_Image(input1)
