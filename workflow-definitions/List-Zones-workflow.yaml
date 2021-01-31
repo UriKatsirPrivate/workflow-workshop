@@ -11,24 +11,19 @@ main:
             body:
                 project: ${args.project}
         result: ResultList
-    - define:
+    - Init Zones Loop:
         assign:
         - array: ${ResultList.body.items}
         - result: ""
         - i: 0
-    - check_condition:
+    - More Zones?:
         switch:
         - condition: ${len(array) > i}
           next: List Instances
-        next: exit_loop
-    # - iterate:
-    #     assign:
-    #         # - result: ${result + array[i].name + " - "}
-    #         - i: ${i+1}
-    #     next: check_condition
-    - exit_loop:
+        next: No More Zones
+    - No More Zones:
         return:
-            concat_result: ${result}   
+            Workflow Completed Successfully
     - List Instances:
         call: http.post
         args:
@@ -60,6 +55,6 @@ main:
         assign:
             # - result: ${result + array[i].name + " - "}
             - i: ${i+1}
-        next: check_condition                
+        next: More Zones?                
     # - returnValue:
     #     return: ${ResultImages.body}
