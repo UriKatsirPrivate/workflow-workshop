@@ -125,3 +125,4 @@ dmypy.json
 .pyre/
 security/uri-test-38aacab75c2a.json
 .vscode/settings.json
+.DS_Store
