@@ -1,3 +1,4 @@
+# https://cloud.google.com/workflows/docs/reference/executions/rest/v1/projects.locations.workflows.executions/create
 from googleapiclient.discovery import build
 import json
 import sys
@@ -26,7 +27,7 @@ def run_workflow(request):
     # project = request_json['project']
     workflow = workflow_service.projects().locations().workflows().executions().create(
       parent="projects/uri-test/locations/us-central1/workflows/CreateMachineImage", body= {
-        "argument": "{\"project\":\"uri-test\",\"zone\":\"us-east1-b\"}"
+        "argument": '{"project": "uri-test","zone": "us-east1-b"}'
       }).execute()
 
     return workflow
