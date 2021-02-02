@@ -24,11 +24,16 @@ workflow_service = build('workflowexecutions', 'v1', credentials=credentials)
 
 def run_workflow(request):
     # request_json = request.get_json()
-    # project = request_json['project']
+    # parent = request_json['parent']
+    parent = "projects/uri-test/locations/us-central1/workflows/CreateMachineImage"
+    # body = request_json['body']
+    body = {"argument": '{"project": "uri-test","zone": "us-east1-b"}'}
     workflow = workflow_service.projects().locations().workflows().executions().create(
-      parent="projects/uri-test/locations/us-central1/workflows/CreateMachineImage", body= {
-        "argument": '{"project": "uri-test","zone": "us-east1-b"}'
-      }).execute()
+      parent= parent, body= body).execute()
+
+    # The code below will cause the workflow to fail because no body is provided
+    # workflow = workflow_service.projects().locations().workflows().executions().create(
+    #   parent= parent).execute()  
 
     return workflow
 
