@@ -15,6 +15,7 @@ By the end of this workshop, you will have a working solution for:
 5. Execute 'list_zones' function using {"project":"ENTER YOUR PROJECT NAME"} as input. The function should return all zones.
 6. Execute 'list_instances' function using {"project":"ENTER YOUR PROJECT NAME","zone":"ENTER ONE ZONE WITH INSTANCES"} as input. The function should all instances in the specified zone.
 7. Manually create few Machine Images using the GCP console.
+8. Install the [Python Client for Cloud Workflows](https://github.com/googleapis/python-workflows).
 
 ## To-Do
 1. Create MachineImage based on labels.
