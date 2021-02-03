@@ -9,7 +9,7 @@ By the end of this workshop, you will have a working solution for:
 
 ## Prerequisites
 1. GCP project.
-2. Service account with Cloud Functions Invoker, Compute Admin and Workflows Admin permissions.
+2. Service account with Cloud Functions Invoker, Compute Admin, Pub/Sub Admin, and Workflows Admin permissions.
 3. Clone the [workflow-workshop](https://github.com/UriKatsirPrivate/workflow-workshop) repository from Github.
 4. Create all five functions in your project using Python 3.7. Use the service account created above.
 5. Execute 'list_zones' function using {"project":"ENTER YOUR PROJECT NAME"} as input. The function should return all zones.
