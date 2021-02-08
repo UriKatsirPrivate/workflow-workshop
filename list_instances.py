@@ -10,12 +10,12 @@ import googleapiclient.discovery
 gce_service = build('compute', 'v1')
 # -------------------------------------------------------------
 
+
 def list_instances(request):
     request_json = request.get_json()
     project = request_json['project']
     zone = request_json['zone']
     instances = gce_service.instances().list(
         project=project, zone=zone).execute()
-            
-    return instances
 
+    return instances

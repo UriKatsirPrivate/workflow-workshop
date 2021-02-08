@@ -1,3 +1,5 @@
+import googleapiclient.discovery
+from google.oauth2 import service_account
 from googleapiclient.discovery import build
 import json
 import sys
@@ -6,6 +8,7 @@ from datetime import datetime, timedelta
 import pytz
 
 utc = pytz.UTC
+
 
 gce_service = build('compute', 'beta')
 
