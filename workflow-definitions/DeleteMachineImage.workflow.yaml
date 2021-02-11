@@ -1,5 +1,5 @@
 # Sample input
-# {"project":"uri-test","days_to_go_back":"5"}
+# {"project":"uri-test","days_to_keep_images":"5"}
 main:
     params: [args]
     steps:
@@ -22,7 +22,7 @@ main:
             body:
                 project: ${args.project}
                 items: ${ResultList.body.items}
-                days_to_go_back: ${args.days_to_go_back}
+                days_to_keep_images: ${args.days_to_keep_images}
         result: ResultImages
     - returnValue:
         return: ${ResultImages.body}
