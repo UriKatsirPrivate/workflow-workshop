@@ -1,5 +1,4 @@
-# Sample input
-# {"project":"uri-test","days_to_keep_images":"5"}
+# Sample input: {"project":"uri-test","days_to_keep_images":"5"}
 main:
     params: [args]
     steps:
