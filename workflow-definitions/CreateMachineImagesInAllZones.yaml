@@ -13,17 +13,16 @@ main:
         result: ResultList
     - Init Zones Loop:
         assign:
-        - array: ${ResultList.body.items}
-        - result: ""
+        # - array: ${ResultList.body.items}
         - i: 0
     - More Zones?:
         switch:
-        - condition: ${len(array) > i}
+        - condition: ${i < len(ResultList.body.zones)}
           next: List Instances
         next: No More Zones
     - No More Zones:
         return:
-            Workflow Completed Successfully
+            "Workflow Completed Successfully"
     - List Instances:
         call: http.post
         args:
@@ -32,8 +31,8 @@ main:
                 type: OIDC
             body:
                 project: ${args.project}
-                zone: ${array[i].name}
-        result: ResultList
+                zone: ${ResultList.body.zones[i]}
+        result: InstanceList
     - Create Machine Image:
         try:
             call: http.post
@@ -43,7 +42,7 @@ main:
                     type: OIDC
                 body:
                     project: ${args.project}
-                    items: ${ResultList.body.items}
+                    items: ${InstanceList.body.items}
             result: ResultImages
             # next: iterate
         except:
@@ -53,7 +52,6 @@ main:
                     next: iterate
     - iterate:
         assign:
-            # - result: ${result + array[i].name + " - "}
             - i: ${i+1}
         next: More Zones?                
     # - returnValue:
