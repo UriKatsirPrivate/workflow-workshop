@@ -10,7 +10,7 @@ By the end of this workshop, you will have a working solution for:
 ## Prerequisites
 1. GCP project.
 2. [Service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts#creating) with Cloud Functions Invoker, Compute Admin, Pub/Sub Admin, and Workflows Admin permissions.
-3. Clone the [workflow-workshop](https://github.com/UriKatsirPrivate/workflow-workshop) repository from Github ($ git clone https://github.com/UriKatsirPrivate/workflow-workshop.git).
+3. Clone this repository from Github ($ git clone https://github.com/UriKatsirPrivate/workflow-workshop.git).
 
 ## Execution
 1. Create all five cloud functions in your project using Python 3.7. Use the service account created in the Prerequisites section above.
