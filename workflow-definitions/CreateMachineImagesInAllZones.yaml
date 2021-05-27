@@ -1,11 +1,16 @@
-# Sample input {"project": "uri-test"}
+# Sample input:{"create_machine_images_url":"https://us-central1-uri-test.cloudfunctions.net/CreateMachineImages","list_instances_url":"https://us-central1-uri-test.cloudfunctions.net/ListInstances","list_zones_url":"https://us-central1-uri-test.cloudfunctions.net/ListZones","project":"uri-test"}
 main:
     params: [args]
     steps:
+    - constants:
+        assign:
+            - list_zones_url: ${args.list_zones_url}
+            - list_instances_url: ${args.list_instances_url}
+            - create_machine_images_url: ${args.create_machine_images_url}
     - List Zones:
         call: http.post
         args:
-            url: https://us-central1-uri-test.cloudfunctions.net/ListZones
+            url: ${list_zones_url}
             auth:
                 type: OIDC
             body:
@@ -19,7 +24,7 @@ main:
                 - List Instances:
                     call: http.post
                     args:
-                        url: https://us-central1-uri-test.cloudfunctions.net/ListInstances
+                        url: ${list_instances_url}
                         auth:
                             type: OIDC
                         body:
@@ -30,7 +35,7 @@ main:
                     try:
                         call: http.post
                         args:
-                            url: https://us-central1-uri-test.cloudfunctions.net/CreateMachineImages
+                            url: ${create_machine_images_url}
                             auth:
                                 type: OIDC
                             body:
