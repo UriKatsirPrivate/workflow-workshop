@@ -11,48 +11,38 @@ main:
             body:
                 project: ${args.project}
         result: ResultList
-    - Init Zones Loop:
-        assign:
-        # - array: ${ResultList.body.items}
-        - i: 0
-    - More Zones?:
-        switch:
-        - condition: ${i < len(ResultList.body.zones)}
-          next: List Instances
-        next: No More Zones
+    - Loop All Zones:
+        for:
+            value: zone
+            in: ${ResultList.body.zones}
+            steps:
+                - List Instances:
+                    call: http.post
+                    args:
+                        url: https://us-central1-uri-test.cloudfunctions.net/ListInstances
+                        auth:
+                            type: OIDC
+                        body:
+                            project: ${args.project}
+                            zone: ${zone}
+                    result: InstanceList
+                - Create Machine Image:
+                    try:
+                        call: http.post
+                        args:
+                            url: https://us-central1-uri-test.cloudfunctions.net/CreateMachineImages
+                            auth:
+                                type: OIDC
+                            body:
+                                project: ${args.project}
+                                items: ${InstanceList.body.items}
+                        result: ResultImages
+                    except:
+                        as: e
+                        steps:
+                             - All Errors: # Fake exception handelinh
+                                assign:
+                                    - i: 1
     - No More Zones:
         return:
             "Workflow Completed Successfully"
-    - List Instances:
-        call: http.post
-        args:
-            url: https://us-central1-uri-test.cloudfunctions.net/ListInstances
-            auth:
-                type: OIDC
-            body:
-                project: ${args.project}
-                zone: ${ResultList.body.zones[i]}
-        result: InstanceList
-    - Create Machine Image:
-        try:
-            call: http.post
-            args:
-                url: https://us-central1-uri-test.cloudfunctions.net/CreateMachineImages
-                auth:
-                    type: OIDC
-                body:
-                    project: ${args.project}
-                    items: ${InstanceList.body.items}
-            result: ResultImages
-            # next: iterate
-        except:
-            as: e
-            steps:
-                - All Errors:
-                    next: iterate
-    - iterate:
-        assign:
-            - i: ${i+1}
-        next: More Zones?                
-    # - returnValue:
-    #     return: ${ResultImages.body}
