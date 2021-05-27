@@ -40,7 +40,7 @@ main:
                     except:
                         as: e
                         steps:
-                             - All Errors: # Fake exception handelinh
+                             - All Errors: # Fake exception handling
                                 assign:
                                     - i: 1
     - No More Zones:
