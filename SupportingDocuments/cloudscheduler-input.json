@@ -1,0 +1,3 @@
+{
+    "argument": "{\"create_machine_images_url\":\"https://us-central1-uri-test.cloudfunctions.net/CreateMachineImages\",\"list_instances_url\":\"https://us-central1-uri-test.cloudfunctions.net/ListInstances\",\"list_zones_url\":\"https://us-central1-uri-test.cloudfunctions.net/ListZones\",\"project\":\"uri-test\"}"
+}
